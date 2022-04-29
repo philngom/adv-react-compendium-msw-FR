@@ -6,4 +6,9 @@ global.fetch = (...args) =>
 
   import { charactersData } from './tests/fixtures/characterData';
 
-
+export const server = setupServer(
+  rest.post('https://www.officeapi.dev/api/characters', (req, res, ctx) => {
+    console.log(characterData);
+    return res(ctx.json(characterData));
+  })
+)
