@@ -1,3 +1,8 @@
+import Characters from './views/Characters';
+
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <h1>The Office Characters</h1>
+    <Characters />
+  )
 }
