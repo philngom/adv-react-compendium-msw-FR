@@ -1,18 +1,21 @@
 import App from '../App';
-import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('App', () => {
-  it('should load and display a list of 27 characters', async () => {
+  it('should be able to search characters', async () => {
     render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
     )
 
-    screen.getByText(/loading.../i);
+    await waitForElementToBeRemoved(screen.getByText(/loading.../i));
 
-    await screen.findByText(/michael scott/i);
+    const search = screen.getByPlaceholderText('Find a character');
+    userEvent.type(search, 'michael');
+
+    expect(screen.getAllByRole('listitem')).toHaveLength(1);
   })
 })
